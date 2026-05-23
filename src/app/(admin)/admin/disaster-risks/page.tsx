@@ -3,6 +3,8 @@ import { getDisasters } from "@/services/disasterServices"
 import { getProvinces } from "@/services/provinceServices"
 import { getDisasterRisks } from "@/services/disasterRiskServices"
 
+export const dynamic = "force-dynamic"
+
 export default async function Page() {
   const [disasters, provinces, disasterRisks] = await Promise.all([
     getDisasters(),
