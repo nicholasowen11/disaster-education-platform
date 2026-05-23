@@ -150,6 +150,7 @@ export default function CreateEmergencyContactDialog({
             <TextField
               fullWidth
               size="small"
+              type="number"
               value={form.phoneNumber}
               onChange={(e) =>
                 setForm((prev) => ({
