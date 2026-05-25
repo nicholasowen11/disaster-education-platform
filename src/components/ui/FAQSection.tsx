@@ -200,8 +200,8 @@ export default function FAQSection() {
                             xs: 38,
                             md: 44,
                           },
-                          backgroundColor: "var(--accent)",
-                          color: "white",
+                          backgroundColor: isOpen ? "var(--accent)" : "var(--headline)",
+                          color: "var(--background)",
                           flexShrink: 0,
                         }}
                       >
