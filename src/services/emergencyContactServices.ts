@@ -62,3 +62,18 @@ export async function deleteEmergencyContact(id: string): Promise<void> {
     .eq("id", id)
   if (error) throw error
 }
+
+export async function checkDuplicateContact(
+  name: string,
+  phoneNumber: string,
+  excludeId?: string
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("emergency_contacts")
+    .select("id")
+    .ilike("name", name)
+    .eq("phone_number", phoneNumber)
+
+  if (error) throw error
+  return (data ?? []).some((d) => d.id !== excludeId)
+}

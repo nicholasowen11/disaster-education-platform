@@ -71,12 +71,12 @@ export default function DisastersPage({ disasters: initialDisasters }: Props) {
   }
 
   const handleCreate = async (form: FormState, imageFile: File | null) => {
+    if (!imageFile) { setError("Gambar wajib diupload."); return }
     if (!form.name.trim()) { setError("Nama bencana wajib diisi."); return }
     if (!form.overview.trim()) { setError("Deskripsi singkat wajib diisi."); return }
     if (!form.description.trim()) { setError("Deskripsi panjang wajib diisi."); return }
     if (form.causes.some(c => !c.trim())) { setError("Semua penyebab wajib diisi."); return }
     if (form.impacts.some(i => !i.trim())) { setError("Semua dampak wajib diisi."); return }
-    if (!imageFile) { setError("Gambar wajib diupload."); return }
 
     const isDuplicate = await checkDuplicateName(form.name)
     if (isDuplicate) { setError("Nama bencana sudah terdaftar."); return }
@@ -93,6 +93,7 @@ export default function DisastersPage({ disasters: initialDisasters }: Props) {
   }
 
   const handleUpdate = async (form: FormState, imageFile: File | null) => {
+    if (!imageFile) { setError("Gambar wajib diupload."); return }
     if (!form.name.trim()) { setError("Nama bencana wajib diisi."); return }
     if (!form.overview.trim()) { setError("Deskripsi singkat wajib diisi."); return }
     if (!form.description.trim()) { setError("Deskripsi panjang wajib diisi."); return }

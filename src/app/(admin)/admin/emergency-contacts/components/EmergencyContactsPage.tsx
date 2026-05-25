@@ -16,6 +16,7 @@ import {
   createEmergencyContact,
   updateEmergencyContact,
   deleteEmergencyContact,
+  checkDuplicateContact
 } from "@/services/emergencyContactServices"
 
 type Props = {
@@ -116,6 +117,9 @@ export default function EmergencyContactAdminPage({ contacts, provinces }: Props
       setError("Provinsi wajib dipilih untuk BPBD."); return
     }
 
+    const isDuplicate = await checkDuplicateContact(form.name, form.phoneNumber)
+    if (isDuplicate) { setError("Kontak dengan nama dan nomor yang sama sudah terdaftar."); return }
+
     setSaving(true); setError(null)
     try {
       await createEmergencyContact(form)
@@ -129,10 +133,11 @@ export default function EmergencyContactAdminPage({ contacts, provinces }: Props
   const handleUpdate = async () => {
     if (!form.name.trim()) { setError("Nama institusi wajib diisi."); return }
     if (!form.phoneNumber.toString().trim()) { setError("Nomor telepon wajib diisi."); return }
-    if (form.institutionType === "BPBD" && !form.provinceId) {
-      setError("Provinsi wajib dipilih untuk BPBD."); return
-    }
+    if (form.institutionType === "BPBD" && !form.provinceId) { setError("Provinsi wajib dipilih untuk BPBD."); return }
     if (!targetRow) return
+
+    const isDuplicate = await checkDuplicateContact(form.name, form.phoneNumber, targetRow?.id)
+    if (isDuplicate) { setError("Kontak dengan nama dan nomor yang sama sudah terdaftar."); return }
 
     setSaving(true); setError(null)
     try {
