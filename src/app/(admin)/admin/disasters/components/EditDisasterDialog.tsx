@@ -48,7 +48,18 @@ export default function EditDisasterDialog({
 
   const handleClose = () => {
     setImageFile(null)
-    setImagePreview(null)
+
+    setForm({
+      name: disaster?.name ?? "",
+      overview: disaster?.overview ?? "",
+      description: disaster?.description ?? "",
+      image: disaster?.image ?? "",
+      causes: disaster?.causes?.length ? disaster.causes : [""],
+      impacts: disaster?.impacts?.length ? disaster.impacts : [""],
+    })
+
+    setImagePreview(disaster?.image ?? null)
+
     onClose()
   }
 
