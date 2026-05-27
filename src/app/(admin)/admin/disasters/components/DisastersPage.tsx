@@ -93,7 +93,7 @@ export default function DisastersPage({ disasters: initialDisasters }: Props) {
   }
 
   const handleUpdate = async (form: FormState, imageFile: File | null) => {
-    if (!imageFile) { setError("Gambar wajib diupload."); return }
+    if (!form.image && !imageFile) { setError("Gambar wajib diupload."); return }
     if (!form.name.trim()) { setError("Nama bencana wajib diisi."); return }
     if (!form.overview.trim()) { setError("Deskripsi singkat wajib diisi."); return }
     if (!form.description.trim()) { setError("Deskripsi panjang wajib diisi."); return }
