@@ -38,7 +38,9 @@ export default function EditDisasterDialog({
     impacts: disaster?.impacts?.length ? disaster.impacts : [""],
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    disaster?.image ?? null
+  )
   const fileRef = useRef<HTMLInputElement>(null)
 
   const theme = useTheme()
@@ -46,6 +48,7 @@ export default function EditDisasterDialog({
 
   const handleClose = () => {
     setImageFile(null)
+    setImagePreview(null)
     onClose()
   }
 
